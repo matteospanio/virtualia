@@ -4,6 +4,7 @@ let currentTrackIndex = 0;
 let playlist = [];
 let isLooping = false;
 let isDragging = false;
+let playlistVisible = false;
 
 // DOM Elements
 const playPauseBtn = document.getElementById('playPauseBtn');
@@ -14,12 +15,16 @@ const nextBtn = document.getElementById('nextBtn');
 const loopBtn = document.getElementById('loopBtn');
 const progressBar = document.getElementById('progressBar');
 const progressFilled = document.getElementById('progressFilled');
-const progressHandle = document.getElementById('progressHandle');
 const trackTitle = document.getElementById('trackTitle');
 const trackArtist = document.getElementById('trackArtist');
 const currentTimeDisplay = document.getElementById('currentTime');
 const durationDisplay = document.getElementById('duration');
 const playlistElement = document.getElementById('playlist');
+const playlistToggleBtn = document.getElementById('playlistToggleBtn');
+const playlistView = document.getElementById('playlistView');
+const closePlaylistBtn = document.getElementById('closePlaylistBtn');
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
 
 // Initialize the player when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -27,7 +32,33 @@ document.addEventListener('DOMContentLoaded', () => {
     initializePlayer();
     loadPlaylist();
     setupEventListeners();
+    initializeTheme();
 });
+
+// Initialize theme
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+}
+
+// Toggle theme
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-bs-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+}
+
+// Update theme icon
+function updateThemeIcon(theme) {
+    if (theme === 'dark') {
+        themeIcon.className = 'bi bi-sun-fill';
+    } else {
+        themeIcon.className = 'bi bi-moon-stars-fill';
+    }
+}
 
 // Initialize player
 function initializePlayer() {
@@ -61,15 +92,25 @@ function renderPlaylist() {
     playlistElement.innerHTML = '';
     
     playlist.forEach((track, index) => {
-        const item = document.createElement('div');
-        item.className = 'playlist-item';
+        const item = document.createElement('button');
+        item.className = 'list-group-item list-group-item-action';
         if (index === currentTrackIndex) {
             item.classList.add('active');
         }
         
         item.innerHTML = `
-            <div class="playlist-item-title">${track.title}</div>
-            <div class="playlist-item-artist">${track.artist}</div>
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <i class="bi bi-music-note-beamed"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="playlist-item-title">${track.title}</div>
+                    <div class="playlist-item-artist text-muted">${track.artist}</div>
+                </div>
+                <div>
+                    ${index === currentTrackIndex ? '<i class="bi bi-volume-up-fill"></i>' : ''}
+                </div>
+            </div>
         `;
         
         item.addEventListener('click', () => {
@@ -79,6 +120,17 @@ function renderPlaylist() {
         
         playlistElement.appendChild(item);
     });
+}
+
+// Toggle playlist view
+function togglePlaylistView() {
+    playlistVisible = !playlistVisible;
+    
+    if (playlistVisible) {
+        playlistView.classList.remove('d-none');
+    } else {
+        playlistView.classList.add('d-none');
+    }
 }
 
 // Load a specific track
@@ -100,17 +152,18 @@ function loadTrack(index) {
     
     // Reset progress
     progressFilled.style.width = '0%';
-    progressHandle.style.left = '0%';
 }
 
 // Update playlist UI to show active track
 function updatePlaylistUI() {
-    const items = playlistElement.querySelectorAll('.playlist-item');
+    const items = playlistElement.querySelectorAll('.list-group-item');
     items.forEach((item, index) => {
         if (index === currentTrackIndex) {
             item.classList.add('active');
+            item.querySelector('.flex-grow-1').nextElementSibling.innerHTML = '<i class="bi bi-volume-up-fill"></i>';
         } else {
             item.classList.remove('active');
+            item.querySelector('.flex-grow-1').nextElementSibling.innerHTML = '';
         }
     });
 }
@@ -149,11 +202,11 @@ function togglePlayPause() {
 // Update play/pause button UI
 function updatePlayPauseButton(isPlaying) {
     if (isPlaying) {
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
+        playIcon.classList.add('d-none');
+        pauseIcon.classList.remove('d-none');
     } else {
-        playIcon.style.display = 'block';
-        pauseIcon.style.display = 'none';
+        playIcon.classList.remove('d-none');
+        pauseIcon.classList.add('d-none');
     }
 }
 
@@ -194,7 +247,11 @@ function playPrevious() {
 // Toggle loop mode
 function toggleLoop() {
     isLooping = !isLooping;
-    loopBtn.classList.toggle('active', isLooping);
+    if (isLooping) {
+        loopBtn.classList.add('active');
+    } else {
+        loopBtn.classList.remove('active');
+    }
 }
 
 // Handle track end
@@ -212,7 +269,6 @@ function updateProgress() {
     if (!isNaN(duration) && duration > 0) {
         const percentage = (currentTime / duration) * 100;
         progressFilled.style.width = percentage + '%';
-        progressHandle.style.left = percentage + '%';
     }
     
     // Update time display
@@ -263,6 +319,13 @@ function setupEventListeners() {
     nextBtn.addEventListener('click', playNext);
     prevBtn.addEventListener('click', playPrevious);
     loopBtn.addEventListener('click', toggleLoop);
+    
+    // Playlist toggle
+    playlistToggleBtn.addEventListener('click', togglePlaylistView);
+    closePlaylistBtn.addEventListener('click', togglePlaylistView);
+    
+    // Theme toggle
+    themeToggle.addEventListener('click', toggleTheme);
     
     // Progress bar interactions
     progressBar.addEventListener('click', seek);
@@ -319,6 +382,10 @@ function setupEventListeners() {
             case 'KeyL':
                 e.preventDefault();
                 toggleLoop();
+                break;
+            case 'KeyP':
+                e.preventDefault();
+                togglePlaylistView();
                 break;
         }
     });
