@@ -1,0 +1,515 @@
+/* Color Palette - Nature Inspired with Autumn Tones */
+:root {
+    --color-primary: #4caf50;
+    --color-secondary: #81c784;
+    --color-accent: #66bb6a;
+    --color-autumn-orange: #ff9800;
+    --color-autumn-yellow: #ffc107;
+    --color-autumn-red: #ff5722;
+    --color-wood: #5d4037;
+    --color-bg-light: #f1f8e9;
+    --color-bg-gradient-start: #f1f8e9;
+    --color-bg-gradient-end: #fff3e0;
+}
+
+[data-bs-theme="dark"] {
+    --color-primary: #66bb6a;
+    --color-secondary: #4caf50;
+    --color-accent: #81c784;
+    --color-autumn-orange: #ff9800;
+    --color-autumn-yellow: #ffc107;
+    --color-autumn-red: #ff5722;
+    --color-wood: #8d6e63;
+    --color-bg-light: #1a1a1a;
+    --color-bg-gradient-start: #1a1a1a;
+    --color-bg-gradient-end: #2d2d2d;
+}
+
+/* Base Styles */
+body {
+    background: linear-gradient(135deg, var(--color-bg-gradient-start) 0%, var(--color-bg-gradient-end) 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Theme Toggle */
+.theme-toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+}
+
+.theme-toggle {
+    background: var(--bs-body-bg);
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--color-primary);
+    color: white;
+    transform: rotate(20deg) scale(1.1);
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+}
+
+/* Player Wrapper */
+.player-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Stylized Tree */
+.tree-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stylized-tree {
+    width: 180px;
+    height: 220px;
+}
+
+/* Canopy breathing animation */
+.canopy-layer {
+    animation: breathe 4s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.canopy-1 {
+    animation-delay: 0s;
+}
+
+.canopy-2 {
+    animation-delay: 0.3s;
+}
+
+.canopy-3 {
+    animation-delay: 0.6s;
+}
+
+@keyframes breathe {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.85;
+    }
+    50% {
+        transform: scale(1.03);
+        opacity: 0.95;
+    }
+}
+
+/* Transpiration wave animation */
+.transpiration-waves {
+    animation: float-up 3s ease-in-out infinite;
+}
+
+.wave {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: wave-flow 6s linear infinite;
+}
+
+.wave-1 {
+    animation-delay: 0s;
+}
+
+.wave-2 {
+    animation-delay: 0.5s;
+}
+
+.wave-3 {
+    animation-delay: 1s;
+}
+
+@keyframes wave-flow {
+    0% {
+        stroke-dashoffset: 200;
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.4;
+    }
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes float-up {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Header */
+header h1 {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.subtitle {
+    color: var(--color-accent);
+    font-size: 1.25rem;
+}
+
+.description {
+    color: var(--bs-secondary-color);
+    font-size: 0.95rem;
+}
+
+/* Now Playing Card */
+.now-playing-card {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    background: var(--bs-body-bg);
+}
+
+[data-bs-theme="dark"] .now-playing-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.album-art {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.track-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--bs-body-color);
+}
+
+.track-artist {
+    font-size: 0.9rem;
+}
+
+.playlist-toggle-btn {
+    color: var(--color-primary);
+    text-decoration: none;
+    padding: 8px;
+    transition: all 0.3s ease;
+}
+
+.playlist-toggle-btn:hover {
+    color: var(--color-accent);
+    transform: scale(1.1);
+}
+
+/* Progress Bar */
+.progress-container {
+    margin-top: 1rem;
+}
+
+.time-display {
+    font-size: 0.85rem;
+    color: var(--bs-secondary-color);
+}
+
+.progress {
+    background-color: var(--bs-secondary-bg);
+    border-radius: 10px;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-autumn-orange));
+    border-radius: 10px;
+    transition: width 0.1s linear;
+}
+
+/* Player Controls */
+.control-btn {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.control-btn:hover {
+    color: var(--color-accent);
+    transform: scale(1.1);
+}
+
+.control-btn-large {
+    width: 65px;
+    height: 65px;
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    border: none;
+    color: white;
+}
+
+.control-btn-large:hover {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+    transform: scale(1.05);
+}
+
+.control-btn-large:active {
+    transform: scale(0.95);
+}
+
+/* Additional Controls */
+#loopBtn.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+/* Playlist View */
+.playlist-view {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    background: var(--bs-body-bg);
+    max-height: 400px;
+    overflow: hidden;
+}
+
+[data-bs-theme="dark"] .playlist-view {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.playlist-view .card-header {
+    background: var(--bs-body-bg);
+    border-bottom: 1px solid var(--bs-border-color);
+    padding: 1rem;
+}
+
+.playlist-view .card-body {
+    max-height: 340px;
+    overflow-y: auto;
+}
+
+/* Playlist Items */
+.list-group-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    background: var(--bs-body-bg);
+    border-color: var(--bs-border-color);
+}
+
+.list-group-item:hover {
+    background: var(--bs-secondary-bg);
+    border-left-color: var(--color-accent);
+    transform: translateX(4px);
+}
+
+.list-group-item.active {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    border-left-color: var(--color-autumn-orange);
+    color: white;
+}
+
+.playlist-item-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.playlist-item-artist {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* Footer */
+footer {
+    margin-top: 3rem;
+}
+
+.about strong {
+    color: var(--color-primary);
+}
+
+/* Background Wave Shapes */
+.bg-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.bg-shape {
+    position: absolute;
+    opacity: 0.03;
+}
+
+.bg-shape-1 {
+    width: 100%;
+    height: 200px;
+    top: 15%;
+    left: 0;
+    animation: wave-drift-1 25s ease-in-out infinite;
+}
+
+.bg-shape-1::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, var(--color-primary) 0%, transparent 60%);
+    border-radius: 50%;
+    top: 0;
+    left: -25%;
+}
+
+.bg-shape-2 {
+    width: 100%;
+    height: 250px;
+    top: 50%;
+    left: 0;
+    animation: wave-drift-2 30s ease-in-out infinite;
+}
+
+.bg-shape-2::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, var(--color-accent) 0%, transparent 60%);
+    border-radius: 50%;
+    top: 0;
+    left: -25%;
+}
+
+.bg-shape-3 {
+    width: 100%;
+    height: 180px;
+    bottom: 10%;
+    left: 0;
+    animation: wave-drift-3 35s ease-in-out infinite;
+}
+
+.bg-shape-3::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, var(--color-autumn-yellow) 0%, transparent 60%);
+    border-radius: 50%;
+    top: 0;
+    left: -25%;
+}
+
+@keyframes wave-drift-1 {
+    0%, 100% {
+        transform: translateX(0) translateY(0) scaleX(1);
+    }
+    25% {
+        transform: translateX(5%) translateY(-3%) scaleX(1.1);
+    }
+    50% {
+        transform: translateX(0) translateY(5%) scaleX(0.95);
+    }
+    75% {
+        transform: translateX(-5%) translateY(-2%) scaleX(1.05);
+    }
+}
+
+@keyframes wave-drift-2 {
+    0%, 100% {
+        transform: translateX(0) translateY(0) scaleX(1);
+    }
+    33% {
+        transform: translateX(-8%) translateY(4%) scaleX(1.08);
+    }
+    66% {
+        transform: translateX(3%) translateY(-3%) scaleX(0.92);
+    }
+}
+
+@keyframes wave-drift-3 {
+    0%, 100% {
+        transform: translateX(0) translateY(0) scaleX(1);
+    }
+    40% {
+        transform: translateX(6%) translateY(-5%) scaleX(1.12);
+    }
+    80% {
+        transform: translateX(-4%) translateY(3%) scaleX(0.98);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .player-wrapper {
+        padding: 20px 15px;
+    }
+
+    .stylized-tree {
+        width: 150px;
+        height: 180px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .control-btn-large {
+        width: 55px;
+        height: 55px;
+        font-size: 1.5rem;
+    }
+
+    .album-art {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Custom Scrollbar */
+.playlist-view .card-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.playlist-view .card-body::-webkit-scrollbar-track {
+    background: var(--bs-secondary-bg);
+}
+
+.playlist-view .card-body::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 4px;
+}
+
+.playlist-view .card-body::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}
+
+/* Smooth transitions */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

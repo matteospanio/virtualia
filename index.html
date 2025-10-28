@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fresh Sound Shower - A tree-based sound installation inspired by natural transpiration">
+    <title>Traspirazioni Sonore</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <!-- Theme Toggle -->
+        <div class="theme-toggle-container">
+            <button class="btn btn-sm theme-toggle" id="themeToggle" title="Toggle theme">
+                <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+            </button>
+        </div>
+
+        <div class="row g-0 min-vh-100">
+            <div class="col-12">
+                <div class="player-wrapper">
+                    <!-- Header with stylized tree -->
+                    <header class="text-center mb-4">
+                        <div class="tree-container mb-3">
+                            <svg class="stylized-tree" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Tree canopy - layered organic shapes -->
+                                <ellipse class="canopy-layer canopy-3" cx="100" cy="90" rx="65" ry="55" fill="#4caf50" opacity="0.7"/>
+                                <ellipse class="canopy-layer canopy-2" cx="100" cy="75" rx="55" ry="48" fill="#66bb6a" opacity="0.8"/>
+                                <ellipse class="canopy-layer canopy-1" cx="100" cy="60" rx="45" ry="40" fill="#81c784" opacity="0.85"/>
+                                
+                                <!-- Trunk -->
+                                <path d="M 90 120 L 85 200 L 115 200 L 110 120 Z" fill="#5d4037" opacity="0.9"/>
+                                
+                                <!-- Roots suggestion -->
+                                <path d="M 85 200 Q 70 210 60 220" stroke="#5d4037" stroke-width="2" fill="none" opacity="0.5"/>
+                                <path d="M 100 200 Q 100 215 100 230" stroke="#5d4037" stroke-width="2" fill="none" opacity="0.5"/>
+                                <path d="M 115 200 Q 130 210 140 220" stroke="#5d4037" stroke-width="2" fill="none" opacity="0.5"/>
+                                
+                                <!-- Transpiration waves -->
+                                <g class="transpiration-waves">
+                                    <path class="wave wave-1" d="M 40 50 Q 70 40 100 50 T 160 50" stroke="#81c784" stroke-width="1.5" fill="none" opacity="0.6"/>
+                                    <path class="wave wave-2" d="M 30 35 Q 65 25 100 35 T 170 35" stroke="#66bb6a" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                    <path class="wave wave-3" d="M 35 20 Q 68 10 100 20 T 165 20" stroke="#4caf50" stroke-width="1.5" fill="none" opacity="0.4"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <h1 class="display-4 fw-bold">Traspirazioni sonore</h1>
+                        <p class="subtitle fst-italic">Il potere raffrescante dei suoni e degli alberi</p>
+                    </header>
+
+                    <!-- Main Player Section -->
+                    <main class="player-section">
+                        <!-- Now Playing Card -->
+                        <div class="card now-playing-card mb-4">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <div class="album-art">
+                                            <i class="bi bi-music-note-beamed"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <h5 class="track-title mb-1" id="trackTitle">Select a track to begin</h5>
+                                        <p class="track-artist text-muted mb-0" id="trackArtist">—</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button class="btn btn-link playlist-toggle-btn" id="playlistToggleBtn" title="Toggle playlist">
+                                            <i class="bi bi-music-note-list fs-3"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Progress Bar -->
+                                <div class="progress-container mt-3">
+                                    <div class="d-flex justify-content-between time-display mb-2">
+                                        <span id="currentTime">0:00</span>
+                                        <span id="duration">0:00</span>
+                                    </div>
+                                    <div class="progress" style="height: 6px; cursor: pointer;" id="progressBar">
+                                        <div class="progress-bar" id="progressFilled" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Player Controls -->
+                                <div class="player-controls d-flex justify-content-center align-items-center gap-3 mt-3">
+                                    <button class="btn btn-link control-btn" id="prevBtn" title="Previous track">
+                                        <i class="bi bi-skip-start-fill"></i>
+                                    </button>
+                                    <button class="btn btn-primary control-btn control-btn-large rounded-circle" id="playPauseBtn" title="Play/Pause">
+                                        <i class="bi bi-play-fill" id="playIcon"></i>
+                                        <i class="bi bi-pause-fill d-none" id="pauseIcon"></i>
+                                    </button>
+                                    <button class="btn btn-link control-btn" id="nextBtn" title="Next track">
+                                        <i class="bi bi-skip-end-fill"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Additional Controls -->
+                                <div class="additional-controls d-flex justify-content-center gap-2 mt-3">
+                                    <button class="btn btn-sm btn-outline-secondary" id="loopBtn" title="Loop playlist">
+                                        <i class="bi bi-arrow-repeat"></i>
+                                        <span class="ms-1">Loop</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Playlist View (Hidden by default) -->
+                        <div class="card playlist-view d-none" id="playlistView">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="bi bi-music-note-list me-2"></i>Playlist
+                                </h5>
+                                <button class="btn btn-sm btn-close" id="closePlaylistBtn" aria-label="Close"></button>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush" id="playlist">
+                                    <!-- Playlist items will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+
+                    <!-- Footer with logo space -->
+                    <footer class="mt-5 text-center">
+                        <div class="about mb-3">
+                            <p class="concept mb-2 fst-italic text-muted">Ideazione di <strong>Vincenzo Guarnieri</strong>, in collaborazione con <strong>Massimiliano Zampini</strong> (Centro Interdipartimentale Mente/Cervello, Università di Trento), <strong>Matteo Spanio</strong> e <strong>Antonio Rodà</strong> (Centro di Sonologia Computazionale, Università di Padova).</p>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geometric Background Shapes -->
+        <div class="bg-shapes">
+            <div class="bg-shape bg-shape-1"></div>
+            <div class="bg-shape bg-shape-2"></div>
+            <div class="bg-shape bg-shape-3"></div>
+        </div>
+    </div>
+
+    <!-- Audio element (hidden) -->
+    <audio id="audioPlayer" preload="metadata"></audio>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

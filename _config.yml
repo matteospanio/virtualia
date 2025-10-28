@@ -1,0 +1,14 @@
+# Jekyll theme (for GitHub Pages)
+theme: null
+
+# Include these files in the build
+include:
+  - index.html
+  - style.css
+  - script.js
+  - playlist.json
+
+# Exclude unnecessary files
+exclude:
+  - README.md
+  - LICENSE
