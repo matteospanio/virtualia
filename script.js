@@ -23,8 +23,6 @@ const playlistElement = document.getElementById('playlist');
 const playlistToggleBtn = document.getElementById('playlistToggleBtn');
 const playlistView = document.getElementById('playlistView');
 const closePlaylistBtn = document.getElementById('closePlaylistBtn');
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = document.getElementById('themeIcon');
 
 // Initialize the player when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,33 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializePlayer();
     loadPlaylist();
     setupEventListeners();
-    initializeTheme();
 });
-
-// Initialize theme
-function initializeTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-bs-theme', savedTheme);
-    updateThemeIcon(savedTheme);
-}
-
-// Toggle theme
-function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-bs-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-bs-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-}
-
-// Update theme icon
-function updateThemeIcon(theme) {
-    if (theme === 'dark') {
-        themeIcon.className = 'bi bi-sun-fill';
-    } else {
-        themeIcon.className = 'bi bi-moon-stars-fill';
-    }
-}
 
 // Initialize player
 function initializePlayer() {
@@ -323,9 +295,6 @@ function setupEventListeners() {
     // Playlist toggle
     playlistToggleBtn.addEventListener('click', togglePlaylistView);
     closePlaylistBtn.addEventListener('click', togglePlaylistView);
-    
-    // Theme toggle
-    themeToggle.addEventListener('click', toggleTheme);
     
     // Progress bar interactions
     progressBar.addEventListener('click', seek);
