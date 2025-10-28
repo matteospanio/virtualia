@@ -27,7 +27,8 @@
 
 /* Base Styles */
 body {
-    background: linear-gradient(135deg, var(--color-bg-gradient-start) 0%, var(--color-bg-gradient-end) 100%);
+    /* Gradient now replaced by three.js background, keeping minimal fallback */
+    background: var(--color-bg-gradient-start);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
@@ -427,6 +428,8 @@ footer {
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
+    /* Hidden in favor of three.js background */
+    display: none;
 }
 
 .bg-shape {
