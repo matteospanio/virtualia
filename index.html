@@ -25,12 +25,30 @@
         <div class="row g-0 min-vh-100">
             <div class="col-12">
                 <div class="player-wrapper">
-                    <!-- Header with geometric shapes -->
+                    <!-- Header with stylized tree -->
                     <header class="text-center mb-4">
-                        <div class="geometric-shapes mb-3">
-                            <div class="shape shape-circle"></div>
-                            <div class="shape shape-square"></div>
-                            <div class="shape shape-triangle"></div>
+                        <div class="tree-container mb-3">
+                            <svg class="stylized-tree" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Tree canopy - layered organic shapes -->
+                                <ellipse class="canopy-layer canopy-3" cx="100" cy="90" rx="65" ry="55" fill="#4caf50" opacity="0.7"/>
+                                <ellipse class="canopy-layer canopy-2" cx="100" cy="75" rx="55" ry="48" fill="#66bb6a" opacity="0.8"/>
+                                <ellipse class="canopy-layer canopy-1" cx="100" cy="60" rx="45" ry="40" fill="#81c784" opacity="0.85"/>
+                                
+                                <!-- Trunk -->
+                                <path d="M 90 120 L 85 200 L 115 200 L 110 120 Z" fill="#5d4037" opacity="0.9"/>
+                                
+                                <!-- Roots suggestion -->
+                                <path d="M 85 200 Q 70 210 60 220" stroke="#5d4037" stroke-width="2" fill="none" opacity="0.5"/>
+                                <path d="M 100 200 Q 100 215 100 230" stroke="#5d4037" stroke-width="2" fill="none" opacity="0.5"/>
+                                <path d="M 115 200 Q 130 210 140 220" stroke="#5d4037" stroke-width="2" fill="none" opacity="0.5"/>
+                                
+                                <!-- Transpiration waves -->
+                                <g class="transpiration-waves">
+                                    <path class="wave wave-1" d="M 40 50 Q 70 40 100 50 T 160 50" stroke="#81c784" stroke-width="1.5" fill="none" opacity="0.6"/>
+                                    <path class="wave wave-2" d="M 30 35 Q 65 25 100 35 T 170 35" stroke="#66bb6a" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                    <path class="wave wave-3" d="M 35 20 Q 68 10 100 20 T 165 20" stroke="#4caf50" stroke-width="1.5" fill="none" opacity="0.4"/>
+                                </g>
+                            </svg>
                         </div>
                         <h1 class="display-4 fw-bold">Fresh Sound Shower</h1>
                         <p class="subtitle fst-italic">Traspirazioni Sonore</p>

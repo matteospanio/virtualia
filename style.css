@@ -75,50 +75,93 @@ body {
     justify-content: center;
 }
 
-/* Geometric Shapes in Header */
-.geometric-shapes {
+/* Stylized Tree */
+.tree-container {
     display: flex;
     justify-content: center;
-    gap: 20px;
     align-items: center;
 }
 
-.shape {
-    animation: float 3s ease-in-out infinite;
+.stylized-tree {
+    width: 180px;
+    height: 220px;
 }
 
-.shape-circle {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-    border-radius: 50%;
+/* Canopy breathing animation */
+.canopy-layer {
+    animation: breathe 4s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.canopy-1 {
     animation-delay: 0s;
 }
 
-.shape-square {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--color-autumn-orange), var(--color-autumn-yellow));
-    border-radius: 8px;
-    transform: rotate(45deg);
+.canopy-2 {
+    animation-delay: 0.3s;
+}
+
+.canopy-3 {
+    animation-delay: 0.6s;
+}
+
+@keyframes breathe {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.85;
+    }
+    50% {
+        transform: scale(1.03);
+        opacity: 0.95;
+    }
+}
+
+/* Transpiration wave animation */
+.transpiration-waves {
+    animation: float-up 3s ease-in-out infinite;
+}
+
+.wave {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: wave-flow 6s linear infinite;
+}
+
+.wave-1 {
+    animation-delay: 0s;
+}
+
+.wave-2 {
     animation-delay: 0.5s;
 }
 
-.shape-triangle {
-    width: 0;
-    height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 35px solid var(--color-accent);
+.wave-3 {
     animation-delay: 1s;
 }
 
-@keyframes float {
+@keyframes wave-flow {
+    0% {
+        stroke-dashoffset: 200;
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.4;
+    }
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes float-up {
     0%, 100% {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
     }
 }
 
@@ -316,7 +359,7 @@ footer {
     background: var(--bs-secondary-bg);
 }
 
-/* Background Geometric Shapes */
+/* Background Wave Shapes */
 .bg-shapes {
     position: fixed;
     top: 0;
@@ -330,49 +373,102 @@ footer {
 
 .bg-shape {
     position: absolute;
-    opacity: 0.05;
-    animation: bg-float 20s ease-in-out infinite;
+    opacity: 0.03;
 }
 
 .bg-shape-1 {
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    width: 100%;
+    height: 200px;
+    top: 15%;
+    left: 0;
+    animation: wave-drift-1 25s ease-in-out infinite;
+}
+
+.bg-shape-1::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, var(--color-primary) 0%, transparent 60%);
     border-radius: 50%;
-    top: 10%;
-    left: -150px;
-    animation-delay: 0s;
+    top: 0;
+    left: -25%;
 }
 
 .bg-shape-2 {
-    width: 250px;
+    width: 100%;
     height: 250px;
-    background: linear-gradient(135deg, var(--color-autumn-orange), var(--color-autumn-yellow));
-    border-radius: 20px;
     top: 50%;
-    right: -125px;
-    transform: rotate(45deg);
-    animation-delay: 5s;
+    left: 0;
+    animation: wave-drift-2 30s ease-in-out infinite;
+}
+
+.bg-shape-2::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, var(--color-accent) 0%, transparent 60%);
+    border-radius: 50%;
+    top: 0;
+    left: -25%;
 }
 
 .bg-shape-3 {
-    width: 0;
-    height: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-bottom: 260px solid var(--color-accent);
+    width: 100%;
+    height: 180px;
     bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    animation-delay: 10s;
+    left: 0;
+    animation: wave-drift-3 35s ease-in-out infinite;
 }
 
-@keyframes bg-float {
+.bg-shape-3::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, var(--color-autumn-yellow) 0%, transparent 60%);
+    border-radius: 50%;
+    top: 0;
+    left: -25%;
+}
+
+@keyframes wave-drift-1 {
     0%, 100% {
-        transform: translateY(0) rotate(0deg);
+        transform: translateX(0) translateY(0) scaleX(1);
+    }
+    25% {
+        transform: translateX(5%) translateY(-3%) scaleX(1.1);
     }
     50% {
-        transform: translateY(-30px) rotate(10deg);
+        transform: translateX(0) translateY(5%) scaleX(0.95);
+    }
+    75% {
+        transform: translateX(-5%) translateY(-2%) scaleX(1.05);
+    }
+}
+
+@keyframes wave-drift-2 {
+    0%, 100% {
+        transform: translateX(0) translateY(0) scaleX(1);
+    }
+    33% {
+        transform: translateX(-8%) translateY(4%) scaleX(1.08);
+    }
+    66% {
+        transform: translateX(3%) translateY(-3%) scaleX(0.92);
+    }
+}
+
+@keyframes wave-drift-3 {
+    0%, 100% {
+        transform: translateX(0) translateY(0) scaleX(1);
+    }
+    40% {
+        transform: translateX(6%) translateY(-5%) scaleX(1.12);
+    }
+    80% {
+        transform: translateX(-4%) translateY(3%) scaleX(0.98);
     }
 }
 
@@ -382,20 +478,9 @@ footer {
         padding: 20px 15px;
     }
 
-    .geometric-shapes {
-        gap: 15px;
-    }
-
-    .shape-circle,
-    .shape-square {
-        width: 30px;
-        height: 30px;
-    }
-
-    .shape-triangle {
-        border-left-width: 15px;
-        border-right-width: 15px;
-        border-bottom-width: 26px;
+    .stylized-tree {
+        width: 150px;
+        height: 180px;
     }
 
     header h1 {
