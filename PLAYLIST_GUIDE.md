@@ -67,9 +67,11 @@ If you have your own web server or hosting:
 ### Option 4: Using Free Audio Hosting Services
 
 Services like:
-- **SoundCloud** (use download URL if enabled)
-- **Internet Archive** (archive.org)
-- **Bandcamp** (if artist allows downloads)
+- **Internet Archive** (archive.org) - Provides direct download links for public domain content
+- **Freesound.org** - Community audio library with download options
+- **Bandcamp** - If artist explicitly allows downloads and provides direct links
+
+**Note:** Always respect copyright and terms of service. Only use audio you have permission to use.
 
 ## Editing playlist.json
 
@@ -113,7 +115,20 @@ The playlist file is a simple JSON array. Here's the structure:
 
 ### Track doesn't appear in playlist
 - **Cause:** JSON syntax error
-- **Fix:** Validate your JSON using an online JSON validator (jsonlint.com)
+- **Fix:** Use browser developer tools (F12 → Console) to check for JSON errors, or use a local JSON validator
+
+### Validating JSON Syntax
+
+To check if your JSON is valid:
+1. Open your browser's Developer Tools (F12)
+2. Go to the Console tab
+3. Type: `JSON.parse('paste your playlist content here')`
+4. If valid, you'll see the parsed object; if invalid, you'll see an error message
+
+Alternatively, you can use Node.js locally:
+```bash
+node -e "console.log(JSON.parse(require('fs').readFileSync('playlist.json')))"
+```
 
 ### Playback is choppy
 - **Cause:** File is too large or internet is slow
@@ -161,7 +176,7 @@ The playlist file is a simple JSON array. Here's the structure:
 
 ## Need Help?
 
-- Check the browser console (F12) for error messages
-- Verify your JSON syntax at [JSONLint](https://jsonlint.com/)
+- Check the browser console (F12 → Console tab) for error messages
+- Use browser Developer Tools to validate JSON (see "Validating JSON Syntax" section above)
 - Ensure your URLs are publicly accessible
 - Test with a simple audio file first to verify the setup works
