@@ -450,7 +450,7 @@ footer {
     color: var(--color-primary);
 }
 
-/* Background Wave Shapes */
+/* Animated Natural Landscape Background */
 .bg-shapes {
     position: fixed;
     top: 0;
@@ -460,108 +460,278 @@ footer {
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
-    /* Hidden in favor of three.js background */
-    display: none;
+    display: block;
 }
 
+/* Sky gradient */
+.bg-shapes::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to bottom, 
+        var(--color-bg-gradient-start) 0%, 
+        rgba(135, 206, 235, 0.3) 40%,
+        rgba(173, 216, 230, 0.2) 100%);
+    z-index: 0;
+}
+
+[data-bs-theme="dark"] .bg-shapes::before {
+    background: linear-gradient(to bottom, 
+        var(--color-bg-gradient-start) 0%, 
+        rgba(25, 42, 86, 0.4) 40%,
+        rgba(44, 62, 80, 0.3) 100%);
+}
+
+/* Water at bottom */
+.bg-shapes::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35%;
+    background: linear-gradient(to bottom,
+        rgba(135, 206, 235, 0.15) 0%,
+        rgba(100, 149, 237, 0.2) 50%,
+        rgba(70, 130, 180, 0.25) 100%);
+    z-index: 1;
+    animation: water-shimmer 4s ease-in-out infinite;
+}
+
+[data-bs-theme="dark"] .bg-shapes::after {
+    background: linear-gradient(to bottom,
+        rgba(44, 62, 80, 0.2) 0%,
+        rgba(52, 73, 94, 0.25) 50%,
+        rgba(34, 49, 63, 0.3) 100%);
+}
+
+@keyframes water-shimmer {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scaleY(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scaleY(1.02);
+    }
+}
+
+/* Water ripples */
 .bg-shape {
     position: absolute;
-    opacity: 0.03;
+    pointer-events: none;
+}
+
+.bg-shape-1,
+.bg-shape-2,
+.bg-shape-3 {
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(100, 149, 237, 0.15);
+    border-radius: 50%;
+}
+
+[data-bs-theme="dark"] .bg-shape-1,
+[data-bs-theme="dark"] .bg-shape-2,
+[data-bs-theme="dark"] .bg-shape-3 {
+    background: rgba(52, 152, 219, 0.1);
 }
 
 .bg-shape-1 {
-    width: 100%;
-    height: 200px;
-    top: 15%;
-    left: 0;
-    animation: wave-drift-1 25s ease-in-out infinite;
-}
-
-.bg-shape-1::before {
-    content: '';
-    position: absolute;
-    width: 150%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, var(--color-primary) 0%, transparent 60%);
-    border-radius: 50%;
-    top: 0;
-    left: -25%;
+    bottom: 28%;
+    animation: ripple 6s ease-in-out infinite;
+    z-index: 2;
 }
 
 .bg-shape-2 {
-    width: 100%;
-    height: 250px;
-    top: 50%;
-    left: 0;
-    animation: wave-drift-2 30s ease-in-out infinite;
-}
-
-.bg-shape-2::before {
-    content: '';
-    position: absolute;
-    width: 150%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, var(--color-accent) 0%, transparent 60%);
-    border-radius: 50%;
-    top: 0;
-    left: -25%;
+    bottom: 22%;
+    animation: ripple 7s ease-in-out infinite 1s;
+    z-index: 2;
 }
 
 .bg-shape-3 {
-    width: 100%;
-    height: 180px;
-    bottom: 10%;
-    left: 0;
-    animation: wave-drift-3 35s ease-in-out infinite;
+    bottom: 16%;
+    animation: ripple 8s ease-in-out infinite 2s;
+    z-index: 2;
 }
 
-.bg-shape-3::before {
-    content: '';
-    position: absolute;
-    width: 150%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, var(--color-autumn-yellow) 0%, transparent 60%);
-    border-radius: 50%;
-    top: 0;
-    left: -25%;
-}
-
-@keyframes wave-drift-1 {
+@keyframes ripple {
     0%, 100% {
-        transform: translateX(0) translateY(0) scaleX(1);
-    }
-    25% {
-        transform: translateX(5%) translateY(-3%) scaleX(1.1);
+        transform: scaleX(1) translateY(0);
+        opacity: 0.3;
     }
     50% {
-        transform: translateX(0) translateY(5%) scaleX(0.95);
+        transform: scaleX(1.05) translateY(-2px);
+        opacity: 0.5;
+    }
+}
+
+/* Big old trees in background */
+.bg-shapes .bg-tree {
+    position: absolute;
+    bottom: 30%;
+    z-index: 3;
+}
+
+.bg-shapes .bg-tree-1 {
+    left: 5%;
+    width: 120px;
+    height: 180px;
+    opacity: 0.4;
+    animation: tree-sway-1 8s ease-in-out infinite;
+}
+
+.bg-shapes .bg-tree-2 {
+    left: 75%;
+    width: 140px;
+    height: 200px;
+    opacity: 0.35;
+    animation: tree-sway-2 9s ease-in-out infinite;
+}
+
+.bg-shapes .bg-tree-3 {
+    right: 15%;
+    width: 100px;
+    height: 160px;
+    opacity: 0.3;
+    animation: tree-sway-3 7s ease-in-out infinite;
+}
+
+@keyframes tree-sway-1 {
+    0%, 100% {
+        transform: rotate(0deg) translateX(0);
+    }
+    25% {
+        transform: rotate(1deg) translateX(2px);
     }
     75% {
-        transform: translateX(-5%) translateY(-2%) scaleX(1.05);
+        transform: rotate(-1deg) translateX(-2px);
     }
 }
 
-@keyframes wave-drift-2 {
+@keyframes tree-sway-2 {
     0%, 100% {
-        transform: translateX(0) translateY(0) scaleX(1);
+        transform: rotate(0deg) translateX(0);
     }
-    33% {
-        transform: translateX(-8%) translateY(4%) scaleX(1.08);
+    30% {
+        transform: rotate(-1.5deg) translateX(-3px);
     }
-    66% {
-        transform: translateX(3%) translateY(-3%) scaleX(0.92);
+    70% {
+        transform: rotate(1.5deg) translateX(3px);
     }
 }
 
-@keyframes wave-drift-3 {
+@keyframes tree-sway-3 {
     0%, 100% {
-        transform: translateX(0) translateY(0) scaleX(1);
+        transform: rotate(0deg) translateX(0);
+    }
+    20% {
+        transform: rotate(1.2deg) translateX(2px);
+    }
+    60% {
+        transform: rotate(-1.2deg) translateX(-2px);
+    }
+}
+
+/* Floating leaves */
+.bg-shapes .floating-leaf {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--color-primary);
+    border-radius: 0 100% 0 100%;
+    opacity: 0.4;
+    z-index: 4;
+}
+
+.bg-shapes .leaf-1 {
+    top: 20%;
+    left: 15%;
+    animation: leaf-float-1 12s ease-in-out infinite;
+}
+
+.bg-shapes .leaf-2 {
+    top: 40%;
+    left: 60%;
+    animation: leaf-float-2 15s ease-in-out infinite 2s;
+}
+
+.bg-shapes .leaf-3 {
+    top: 30%;
+    right: 20%;
+    animation: leaf-float-3 10s ease-in-out infinite 4s;
+}
+
+.bg-shapes .leaf-4 {
+    top: 50%;
+    left: 40%;
+    animation: leaf-float-1 13s ease-in-out infinite 1s;
+}
+
+.bg-shapes .leaf-5 {
+    top: 15%;
+    right: 35%;
+    animation: leaf-float-2 11s ease-in-out infinite 3s;
+}
+
+@keyframes leaf-float-1 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translate(20px, 30px) rotate(90deg);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translate(10px, 60px) rotate(180deg);
+        opacity: 0.4;
+    }
+    75% {
+        transform: translate(-10px, 30px) rotate(270deg);
+        opacity: 0.5;
+    }
+}
+
+@keyframes leaf-float-2 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.3;
+    }
+    30% {
+        transform: translate(-15px, 25px) rotate(120deg);
+        opacity: 0.5;
+    }
+    60% {
+        transform: translate(-25px, 50px) rotate(240deg);
+        opacity: 0.4;
+    }
+    90% {
+        transform: translate(5px, 20px) rotate(360deg);
+        opacity: 0.5;
+    }
+}
+
+@keyframes leaf-float-3 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.3;
+    }
+    20% {
+        transform: translate(15px, 20px) rotate(60deg);
+        opacity: 0.5;
     }
     40% {
-        transform: translateX(6%) translateY(-5%) scaleX(1.12);
+        transform: translate(25px, 45px) rotate(180deg);
+        opacity: 0.4;
     }
-    80% {
-        transform: translateX(-4%) translateY(3%) scaleX(0.98);
+    70% {
+        transform: translate(10px, 65px) rotate(300deg);
+        opacity: 0.5;
     }
 }
 
