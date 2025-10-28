@@ -21,8 +21,8 @@
             0.1,
             1000
         );
-        camera.position.set(0, 5, 15);
-        camera.lookAt(0, 5, 0);
+        camera.position.set(0, 3, 8);
+        camera.lookAt(0, 3, 0);
         
         // Create renderer
         renderer = new THREE.WebGLRenderer({ 
@@ -41,7 +41,8 @@
         container.style.width = '100%';
         container.style.height = '100%';
         container.style.zIndex = '-1';
-        container.style.pointerEvents = 'none';
+        container.style.pointerEvents = 'auto'; // Make interactive
+        container.style.cursor = 'grab';
         container.appendChild(renderer.domElement);
         document.body.insertBefore(container, document.body.firstChild);
         
@@ -56,6 +57,9 @@
         
         // Create falling leaves
         createFallingLeaves();
+        
+        // Add interaction controls
+        setupInteraction();
         
         // Handle window resize
         window.addEventListener('resize', onWindowResize, false);
@@ -84,29 +88,29 @@
         scene.add(fillLight);
     }
     
-    // Create the ancient tree with thick trunk and dense crown
+    // Create the ancient tree with thick trunk and dense crown - smaller and more realistic
     function createTree() {
         tree = new THREE.Group();
         
-        // Create trunk - thick and tall for an old tree
-        const trunkGeometry = new THREE.CylinderGeometry(0.6, 0.8, 8, 12);
+        // Create trunk - smaller but realistic
+        const trunkGeometry = new THREE.CylinderGeometry(0.3, 0.4, 4, 16);
         const trunkMaterial = new THREE.MeshPhongMaterial({ 
-            color: 0x5d4037,
+            color: 0x4a3527,
             flatShading: false,
             shininess: 5
         });
         const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
-        trunk.position.y = 4;
+        trunk.position.y = 2;
         tree.add(trunk);
         
-        // Add bark texture variation with bumps
-        const bumpGeometry = new THREE.SphereGeometry(0.15, 8, 8);
-        const bumpMaterial = new THREE.MeshPhongMaterial({ color: 0x4a3527 });
-        for (let i = 0; i < 20; i++) {
+        // Add bark texture variation with bumps - scaled for smaller tree
+        const bumpGeometry = new THREE.SphereGeometry(0.08, 8, 8);
+        const bumpMaterial = new THREE.MeshPhongMaterial({ color: 0x3d2817 });
+        for (let i = 0; i < 15; i++) {
             const bump = new THREE.Mesh(bumpGeometry, bumpMaterial);
             const angle = Math.random() * Math.PI * 2;
-            const height = Math.random() * 7 + 0.5;
-            const radius = 0.6 + (8 - height) * 0.025;
+            const height = Math.random() * 3.5 + 0.3;
+            const radius = 0.3 + (4 - height) * 0.015;
             bump.position.set(
                 Math.cos(angle) * radius,
                 height,
@@ -116,16 +120,16 @@
             tree.add(bump);
         }
         
-        // Create a large, thick crown with multiple layers
+        // Create a realistic crown with multiple layers - smaller
         leaves = new THREE.Group();
         
-        // Multiple spherical layers for dense crown
+        // Multiple spherical layers for dense crown - scaled down
         const crownLayers = [
-            { radius: 3.5, y: 8, color: 0x4caf50 },
-            { radius: 4, y: 9, color: 0x66bb6a },
-            { radius: 3.8, y: 10, color: 0x81c784 },
-            { radius: 3.2, y: 11, color: 0x66bb6a },
-            { radius: 2.5, y: 12, color: 0x4caf50 }
+            { radius: 1.5, y: 3.8, color: 0x2d5016 },
+            { radius: 1.7, y: 4.2, color: 0x3a6b1f },
+            { radius: 1.6, y: 4.6, color: 0x4a8229 },
+            { radius: 1.3, y: 5, color: 0x3a6b1f },
+            { radius: 1, y: 5.3, color: 0x2d5016 }
         ];
         
         crownLayers.forEach((layer, index) => {
@@ -143,10 +147,10 @@
             leaves.add(crown);
         });
         
-        // Add individual leaf clusters around the crown
-        const leafClusterGeometry = new THREE.SphereGeometry(0.4, 8, 8);
-        for (let i = 0; i < 50; i++) {
-            const colors = [0x4caf50, 0x66bb6a, 0x81c784];
+        // Add individual leaf clusters around the crown - smaller and more realistic
+        const leafClusterGeometry = new THREE.SphereGeometry(0.2, 8, 8);
+        for (let i = 0; i < 40; i++) {
+            const colors = [0x2d5016, 0x3a6b1f, 0x4a8229];
             const color = colors[Math.floor(Math.random() * colors.length)];
             const leafMaterial = new THREE.MeshPhongMaterial({ 
                 color: color,
@@ -154,11 +158,11 @@
             });
             const leafCluster = new THREE.Mesh(leafClusterGeometry, leafMaterial);
             
-            // Position clusters around the crown
+            // Position clusters around the crown - scaled
             const angle = Math.random() * Math.PI * 2;
             const heightFactor = Math.random();
-            const radius = 3 + heightFactor * 1.5;
-            const y = 8 + heightFactor * 4;
+            const radius = 1.3 + heightFactor * 0.8;
+            const y = 3.8 + heightFactor * 1.8;
             
             leafCluster.position.set(
                 Math.cos(angle) * radius,
@@ -198,11 +202,11 @@
             });
             const leaf = new THREE.Mesh(leafGeometry, leafMaterial);
             
-            // Random starting position in the crown area
+            // Random starting position in the crown area - adjusted for smaller tree
             leaf.position.set(
-                (Math.random() - 0.5) * 10,
-                8 + Math.random() * 6,
-                (Math.random() - 0.5) * 10
+                (Math.random() - 0.5) * 6,
+                3.8 + Math.random() * 3,
+                (Math.random() - 0.5) * 6
             );
             
             // Store animation properties
@@ -217,6 +221,68 @@
         }
         
         scene.add(fallingLeaves);
+    }
+    
+    // Setup interaction - click to rotate tree
+    function setupInteraction() {
+        let isDragging = false;
+        let previousMouseX = 0;
+        let targetRotationY = 0;
+        let currentRotationY = 0;
+        
+        const container = document.getElementById('three-background');
+        
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            previousMouseX = e.clientX;
+            container.style.cursor = 'grabbing';
+        });
+        
+        container.addEventListener('mousemove', (e) => {
+            if (isDragging && tree) {
+                const deltaX = e.clientX - previousMouseX;
+                targetRotationY += deltaX * 0.01;
+                previousMouseX = e.clientX;
+            }
+        });
+        
+        container.addEventListener('mouseup', () => {
+            isDragging = false;
+            container.style.cursor = 'grab';
+        });
+        
+        container.addEventListener('mouseleave', () => {
+            isDragging = false;
+            container.style.cursor = 'grab';
+        });
+        
+        // Touch support for mobile
+        container.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            previousMouseX = e.touches[0].clientX;
+        });
+        
+        container.addEventListener('touchmove', (e) => {
+            if (isDragging && tree) {
+                const deltaX = e.touches[0].clientX - previousMouseX;
+                targetRotationY += deltaX * 0.01;
+                previousMouseX = e.touches[0].clientX;
+            }
+        });
+        
+        container.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+        
+        // Smooth rotation animation
+        function updateRotation() {
+            if (tree) {
+                currentRotationY += (targetRotationY - currentRotationY) * 0.1;
+                tree.rotation.y = currentRotationY;
+            }
+            requestAnimationFrame(updateRotation);
+        }
+        updateRotation();
     }
     
     // Animation loop

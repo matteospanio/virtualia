@@ -140,6 +140,14 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Make interactive elements clickable */
+.player-wrapper * {
+    pointer-events: auto;
 }
 
 /* Stylized Tree */
@@ -253,11 +261,19 @@ header h1 {
     border: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
-    background: var(--bs-body-bg);
+    /* Glass morphism effect */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 [data-bs-theme="dark"] .now-playing-card {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .album-art {
@@ -358,19 +374,31 @@ header h1 {
     border: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
-    background: var(--bs-body-bg);
+    /* Glass morphism effect */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     max-height: 400px;
     overflow: hidden;
 }
 
 [data-bs-theme="dark"] .playlist-view {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .playlist-view .card-header {
-    background: var(--bs-body-bg);
-    border-bottom: 1px solid var(--bs-border-color);
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding: 1rem;
+}
+
+[data-bs-theme="dark"] .playlist-view .card-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .playlist-view .card-body {
@@ -383,8 +411,12 @@ header h1 {
     cursor: pointer;
     transition: all 0.3s ease;
     border-left: 4px solid transparent;
-    background: var(--bs-body-bg);
-    border-color: var(--bs-border-color);
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .list-group-item {
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
 .list-group-item:hover {
@@ -589,6 +621,14 @@ footer {
     margin: 0 auto;
     padding: 40px 20px;
     min-height: 100vh;
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Make interactive elements clickable */
+.info-wrapper * {
+    pointer-events: auto;
 }
 
 .info-content {
@@ -599,11 +639,19 @@ footer {
     border: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
-    background: var(--bs-body-bg);
+    /* Glass morphism effect */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 [data-bs-theme="dark"] .info-card {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .info-card .card-title {
