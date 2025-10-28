@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fresh Sound Shower - A tree-based sound installation inspired by natural transpiration">
+    <title>Fresh Sound Shower | Traspirazioni Sonore</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Tree Visual Element -->
+        <div class="tree-visual">
+            <div class="tree-icon">
+                <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Tree trunk -->
+                    <rect x="85" y="180" width="30" height="120" fill="#5d4037" rx="5"/>
+                    <!-- Tree foliage - layers -->
+                    <ellipse cx="100" cy="140" rx="70" ry="50" fill="#4caf50" opacity="0.8"/>
+                    <ellipse cx="100" cy="110" rx="60" ry="45" fill="#66bb6a" opacity="0.8"/>
+                    <ellipse cx="100" cy="80" rx="50" ry="40" fill="#81c784" opacity="0.8"/>
+                    <!-- Subtle animation elements (leaves) -->
+                    <circle class="leaf leaf-1" cx="60" cy="100" r="8" fill="#a5d6a7"/>
+                    <circle class="leaf leaf-2" cx="140" cy="120" r="6" fill="#a5d6a7"/>
+                    <circle class="leaf leaf-3" cx="100" cy="60" r="7" fill="#a5d6a7"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header>
+            <h1>Fresh Sound Shower</h1>
+            <p class="subtitle">Traspirazioni Sonore</p>
+            <p class="description">A natural sound installation under the tree</p>
+        </header>
+
+        <!-- Player Section -->
+        <main class="player-section">
+            <!-- Track Information -->
+            <div class="track-info">
+                <div class="track-title" id="trackTitle">Select a track to begin</div>
+                <div class="track-artist" id="trackArtist">—</div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="time-display">
+                    <span id="currentTime">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-filled" id="progressFilled"></div>
+                    <div class="progress-handle" id="progressHandle"></div>
+                </div>
+            </div>
+
+            <!-- Player Controls -->
+            <div class="player-controls">
+                <button class="control-btn" id="prevBtn" title="Previous track">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                    </svg>
+                </button>
+                <button class="control-btn control-btn-large" id="playPauseBtn" title="Play/Pause">
+                    <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                    </svg>
+                </button>
+                <button class="control-btn" id="nextBtn" title="Next track">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16 18h2V6h-2zm-11-7l8.5-6v12z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Additional Controls -->
+            <div class="additional-controls">
+                <button class="secondary-btn" id="loopBtn" title="Loop playlist">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                    </svg>
+                    <span>Loop</span>
+                </button>
+            </div>
+
+            <!-- Playlist -->
+            <div class="playlist-section">
+                <h3>Playlist</h3>
+                <div class="playlist" id="playlist">
+                    <!-- Playlist items will be populated by JavaScript -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer with logo space -->
+        <footer>
+            <div class="about">
+                <p>An installation by <strong>Vincenzo Guarnieri</strong></p>
+                <p class="concept">Inspired by neuroscience studies on freshness perception and the natural transpiration of trees</p>
+                <a href="https://universounito.it/evento/traspirazioni-sonore-installazione-di-vincenzo-guarnieri/" target="_blank" rel="noopener">Learn more about the installation →</a>
+            </div>
+            <div class="logos">
+                <!-- Logo space for partners/sponsors -->
+                <div class="logo-placeholder">
+                    <p>Partner logos</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Wave animation overlay -->
+    <div class="wave-overlay">
+        <svg class="wave" viewBox="0 0 1200 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,50 Q300,80 600,50 T1200,50 L1200,100 L0,100 Z" fill="rgba(129, 199, 132, 0.1)"/>
+        </svg>
+        <svg class="wave wave-2" viewBox="0 0 1200 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,60 Q300,30 600,60 T1200,60 L1200,100 L0,100 Z" fill="rgba(102, 187, 106, 0.1)"/>
+        </svg>
+    </div>
+
+    <!-- Audio element (hidden) -->
+    <audio id="audioPlayer" preload="metadata"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
