@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Traspirazioni Sonore - Fresh Sound Shower Installation">
+    <title>About - Traspirazioni Sonore</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <!-- Navigation Menu -->
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <button class="navbar-toggler hamburger-menu" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                <i class="bi bi-music-note-beamed me-2"></i>Player
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="info.html">
+                                <i class="bi bi-info-circle me-2"></i>Info
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Theme Toggle -->
+                <button class="btn btn-sm theme-toggle" id="themeToggle" title="Toggle theme">
+                    <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+                </button>
+            </div>
+        </nav>
+
+        <div class="row g-0 min-vh-100">
+            <div class="col-12">
+                <div class="info-wrapper">
+                    <!-- Header -->
+                    <header class="text-center mb-5">
+                        <div class="tree-container mb-3">
+                            <svg class="stylized-tree" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Tree canopy - layered organic shapes -->
+                                <ellipse class="canopy-layer canopy-3" cx="100" cy="90" rx="65" ry="55" fill="#4caf50" opacity="0.7"/>
+                                <ellipse class="canopy-layer canopy-2" cx="100" cy="75" rx="55" ry="48" fill="#66bb6a" opacity="0.8"/>
+                                <ellipse class="canopy-layer canopy-1" cx="100" cy="60" rx="45" ry="40" fill="#81c784" opacity="0.85"/>
+                                
+                                <!-- Trunk -->
+                                <path d="M 90 120 L 85 200 L 115 200 L 110 120 Z" fill="#5d4037" opacity="0.9"/>
+                                
+                                <!-- Roots suggestion -->
+                                <path d="M 85 200 Q 70 210 60 220" stroke="#5d4037" stroke-width="2" fill="none" opacity="0.5"/>
+                                <path d="M 100 200 Q 100 215 100 230" stroke="#5d4037" stroke-width="2" fill="none" opacity="0.5"/>
+                                <path d="M 115 200 Q 130 210 140 220" stroke="#5d4037" stroke-width="2" fill="none" opacity="0.5"/>
+                                
+                                <!-- Transpiration waves -->
+                                <g class="transpiration-waves">
+                                    <path class="wave wave-1" d="M 40 50 Q 70 40 100 50 T 160 50" stroke="#81c784" stroke-width="1.5" fill="none" opacity="0.6"/>
+                                    <path class="wave wave-2" d="M 30 35 Q 65 25 100 35 T 170 35" stroke="#66bb6a" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                    <path class="wave wave-3" d="M 35 20 Q 68 10 100 20 T 165 20" stroke="#4caf50" stroke-width="1.5" fill="none" opacity="0.4"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <h1 class="display-4 fw-bold">Traspirazioni sonore</h1>
+                        <p class="subtitle fst-italic">Il potere raffrescante dei suoni e degli alberi</p>
+                    </header>
+
+                    <!-- Main Content -->
+                    <main class="info-content">
+                        <!-- Image Carousel -->
+                        <div id="installationCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#installationCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#installationCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#installationCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div class="carousel-placeholder">
+                                        <i class="bi bi-image"></i>
+                                        <p>Image 1 - To be uploaded</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="carousel-placeholder">
+                                        <i class="bi bi-image"></i>
+                                        <p>Image 2 - To be uploaded</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="carousel-placeholder">
+                                        <i class="bi bi-image"></i>
+                                        <p>Image 3 - To be uploaded</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#installationCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#installationCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                        <!-- About the Installation -->
+                        <section class="card info-card mb-4">
+                            <div class="card-body">
+                                <h2 class="card-title h3 mb-4">
+                                    <i class="bi bi-info-circle me-2"></i>About the Installation
+                                </h2>
+                                <div class="info-text">
+                                    <p><strong>Traspirazioni Sonore</strong> è un'installazione artistica che esplora il potere raffrescante dei suoni e degli alberi, creando una "doccia sonora fresca" che unisce design ecologico, arte sonora e percezione umana.</p>
+                                    
+                                    <p>L'installazione è pensata per essere collocata sotto un albero, con altoparlanti attaccati ai rami che emettono suoni curati, imitando la traspirazione naturale degli alberi. Questa esperienza multisensoriale amplifica l'effetto di raffreddamento naturale degli alberi attraverso la musica, creando un ambiente immersivo che combina elementi naturali e tecnologici.</p>
+                                    
+                                    <p>Il progetto nasce dalla collaborazione tra arte, scienza e tecnologia, esplorando come il suono possa potenziare la percezione di freschezza e benessere in spazi naturali.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- AI Music Generation -->
+                        <section class="card info-card mb-4">
+                            <div class="card-body">
+                                <h2 class="card-title h3 mb-4">
+                                    <i class="bi bi-cpu me-2"></i>AI-Generated Music
+                                </h2>
+                                <div class="info-text">
+                                    <p>La musica dell'installazione è generata da una versione fine-tuned di <strong>MusicGen</strong>, un modello di intelligenza artificiale rilasciato da Meta che permette di generare musica da descrizioni testuali.</p>
+                                    
+                                    <p>Questo foundation model è stato addestrato con un dataset dedicato per insegnare al modello i concetti di gusto e temperatura, permettendo di creare composizioni sonore che evocano sensazioni di freschezza e raffreddamento in armonia con l'ambiente naturale.</p>
+                                    
+                                    <p>L'utilizzo dell'AI generativa permette di creare un paesaggio sonoro unico e dinamico, perfettamente calibrato per amplificare l'esperienza multisensoriale dell'installazione.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Collaborators -->
+                        <section class="card info-card mb-4">
+                            <div class="card-body">
+                                <h2 class="card-title h3 mb-4">
+                                    <i class="bi bi-people me-2"></i>Collaborators
+                                </h2>
+                                <div class="info-text">
+                                    <p><strong>Ideazione:</strong> Vincenzo Guarnieri</p>
+                                    <p><strong>Collaborazione scientifica:</strong> Massimiliano Zampini (Centro Interdipartimentale Mente/Cervello, Università di Trento)</p>
+                                    <p><strong>Sviluppo tecnico e sonoro:</strong> Matteo Spanio e Antonio Rodà (Centro di Sonologia Computazionale, Università di Padova)</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Links -->
+                        <section class="card info-card mb-4">
+                            <div class="card-body">
+                                <h2 class="card-title h3 mb-4">
+                                    <i class="bi bi-link-45deg me-2"></i>Resources & Links
+                                </h2>
+                                <div class="links-grid">
+                                    <a href="https://github.com/matteospanio/virtualia" target="_blank" rel="noopener noreferrer" class="link-card">
+                                        <div class="link-icon">
+                                            <i class="bi bi-github"></i>
+                                        </div>
+                                        <div class="link-content">
+                                            <h3>GitHub Project</h3>
+                                            <p>View the source code and contribute</p>
+                                        </div>
+                                    </a>
+                                    
+                                    <a href="https://csc.dei.unipd.it/" target="_blank" rel="noopener noreferrer" class="link-card">
+                                        <div class="link-icon">
+                                            <i class="bi bi-music-note-list"></i>
+                                        </div>
+                                        <div class="link-content">
+                                            <h3>Centro di Sonologia Computazionale</h3>
+                                            <p>Università di Padova</p>
+                                        </div>
+                                    </a>
+                                    
+                                    <a href="https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2025.1575741/full" target="_blank" rel="noopener noreferrer" class="link-card">
+                                        <div class="link-icon">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                        </div>
+                                        <div class="link-content">
+                                            <h3>Research Paper</h3>
+                                            <p>Read the full paper on Frontiers</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+
+                    <!-- Footer -->
+                    <footer class="mt-5 text-center mb-4">
+                        <p class="text-muted">
+                            <a href="index.html" class="text-decoration-none">
+                                <i class="bi bi-arrow-left me-2"></i>Back to Player
+                            </a>
+                        </p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geometric Background Shapes -->
+        <div class="bg-shapes">
+            <div class="bg-shape bg-shape-1"></div>
+            <div class="bg-shape bg-shape-2"></div>
+            <div class="bg-shape bg-shape-3"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        // Initialize theme
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        }
+
+        // Toggle theme
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-bs-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
+        // Update theme icon
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.className = 'bi bi-sun-fill';
+            } else {
+                themeIcon.className = 'bi bi-moon-stars-fill';
+            }
+        }
+
+        // Setup event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTheme();
+            themeToggle.addEventListener('click', toggleTheme);
+        });
+    </script>
+</body>
+</html>
