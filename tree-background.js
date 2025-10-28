@@ -1,5 +1,11 @@
 // Three.js background with animated tree, falling leaves, and breeze effect
 (function() {
+    // Check if THREE.js is available
+    if (typeof THREE === 'undefined') {
+        console.warn('THREE.js library not loaded. 3D background will not be displayed.');
+        return;
+    }
+    
     let scene, camera, renderer, tree, leaves, fallingLeaves;
     let clock, animationFrameId;
     
@@ -310,12 +316,16 @@
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-            init();
-            observeThemeChanges();
+            if (typeof THREE !== 'undefined') {
+                init();
+                observeThemeChanges();
+            }
         });
     } else {
-        init();
-        observeThemeChanges();
+        if (typeof THREE !== 'undefined') {
+            init();
+            observeThemeChanges();
+        }
     }
     
     // Cleanup on page unload
@@ -324,6 +334,21 @@
             cancelAnimationFrame(animationFrameId);
         }
         if (renderer) {
+            // Dispose of all geometries and materials to prevent memory leaks
+            if (scene) {
+                scene.traverse((object) => {
+                    if (object.geometry) {
+                        object.geometry.dispose();
+                    }
+                    if (object.material) {
+                        if (Array.isArray(object.material)) {
+                            object.material.forEach(material => material.dispose());
+                        } else {
+                            object.material.dispose();
+                        }
+                    }
+                });
+            }
             renderer.dispose();
         }
     });
