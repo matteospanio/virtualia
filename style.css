@@ -27,7 +27,8 @@
 
 /* Base Styles */
 body {
-    background: linear-gradient(135deg, var(--color-bg-gradient-start) 0%, var(--color-bg-gradient-end) 100%);
+    /* Gradient now replaced by three.js background, keeping minimal fallback */
+    background: var(--color-bg-gradient-start);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
@@ -139,6 +140,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 /* Stylized Tree */
@@ -252,11 +255,19 @@ header h1 {
     border: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
-    background: var(--bs-body-bg);
+    /* Glass morphism effect */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 [data-bs-theme="dark"] .now-playing-card {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .album-art {
@@ -357,19 +368,31 @@ header h1 {
     border: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
-    background: var(--bs-body-bg);
+    /* Glass morphism effect */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     max-height: 400px;
     overflow: hidden;
 }
 
 [data-bs-theme="dark"] .playlist-view {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .playlist-view .card-header {
-    background: var(--bs-body-bg);
-    border-bottom: 1px solid var(--bs-border-color);
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding: 1rem;
+}
+
+[data-bs-theme="dark"] .playlist-view .card-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .playlist-view .card-body {
@@ -382,14 +405,22 @@ header h1 {
     cursor: pointer;
     transition: all 0.3s ease;
     border-left: 4px solid transparent;
-    background: var(--bs-body-bg);
-    border-color: var(--bs-border-color);
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .list-group-item {
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
 .list-group-item:hover {
-    background: var(--bs-secondary-bg);
+    background: rgba(255, 255, 255, 0.15);
     border-left-color: var(--color-accent);
     transform: translateX(4px);
+}
+
+[data-bs-theme="dark"] .list-group-item:hover {
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .list-group-item.active {
@@ -417,7 +448,7 @@ footer {
     color: var(--color-primary);
 }
 
-/* Background Wave Shapes */
+/* Animated Natural Landscape Background */
 .bg-shapes {
     position: fixed;
     top: 0;
@@ -427,106 +458,282 @@ footer {
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
+    display: block;
 }
 
+/* Sky gradient */
+.bg-shapes::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to bottom, 
+        var(--color-bg-gradient-start) 0%, 
+        rgba(135, 206, 235, 0.3) 40%,
+        rgba(173, 216, 230, 0.2) 100%);
+    z-index: 0;
+}
+
+[data-bs-theme="dark"] .bg-shapes::before {
+    background: linear-gradient(to bottom, 
+        var(--color-bg-gradient-start) 0%, 
+        rgba(25, 42, 86, 0.4) 40%,
+        rgba(44, 62, 80, 0.3) 100%);
+}
+
+/* Water at bottom - more natural colors */
+.bg-shapes::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35%;
+    background: linear-gradient(to bottom,
+        rgba(173, 216, 230, 0.25) 0%,
+        rgba(135, 206, 235, 0.35) 30%,
+        rgba(100, 149, 237, 0.4) 60%,
+        rgba(70, 130, 180, 0.45) 100%);
+    z-index: 1;
+    animation: water-shimmer 4s ease-in-out infinite;
+}
+
+[data-bs-theme="dark"] .bg-shapes::after {
+    background: linear-gradient(to bottom,
+        rgba(52, 73, 94, 0.3) 0%,
+        rgba(44, 62, 80, 0.35) 30%,
+        rgba(41, 128, 185, 0.25) 60%,
+        rgba(34, 49, 63, 0.4) 100%);
+}
+
+@keyframes water-shimmer {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scaleY(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scaleY(1.02);
+    }
+}
+
+/* Water ripples - enhanced visibility */
 .bg-shape {
     position: absolute;
-    opacity: 0.03;
+    pointer-events: none;
+}
+
+.bg-shape-1,
+.bg-shape-2,
+.bg-shape-3 {
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(135, 206, 235, 0.25);
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(100, 149, 237, 0.2);
+}
+
+[data-bs-theme="dark"] .bg-shape-1,
+[data-bs-theme="dark"] .bg-shape-2,
+[data-bs-theme="dark"] .bg-shape-3 {
+    background: rgba(52, 152, 219, 0.2);
+    box-shadow: 0 1px 3px rgba(41, 128, 185, 0.15);
 }
 
 .bg-shape-1 {
-    width: 100%;
-    height: 200px;
-    top: 15%;
-    left: 0;
-    animation: wave-drift-1 25s ease-in-out infinite;
-}
-
-.bg-shape-1::before {
-    content: '';
-    position: absolute;
-    width: 150%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, var(--color-primary) 0%, transparent 60%);
-    border-radius: 50%;
-    top: 0;
-    left: -25%;
+    bottom: 28%;
+    animation: ripple 6s ease-in-out infinite;
+    z-index: 2;
 }
 
 .bg-shape-2 {
-    width: 100%;
-    height: 250px;
-    top: 50%;
-    left: 0;
-    animation: wave-drift-2 30s ease-in-out infinite;
-}
-
-.bg-shape-2::before {
-    content: '';
-    position: absolute;
-    width: 150%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, var(--color-accent) 0%, transparent 60%);
-    border-radius: 50%;
-    top: 0;
-    left: -25%;
+    bottom: 22%;
+    animation: ripple 7s ease-in-out infinite 1s;
+    z-index: 2;
 }
 
 .bg-shape-3 {
-    width: 100%;
-    height: 180px;
-    bottom: 10%;
-    left: 0;
-    animation: wave-drift-3 35s ease-in-out infinite;
+    bottom: 16%;
+    animation: ripple 8s ease-in-out infinite 2s;
+    z-index: 2;
 }
 
-.bg-shape-3::before {
-    content: '';
-    position: absolute;
-    width: 150%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, var(--color-autumn-yellow) 0%, transparent 60%);
-    border-radius: 50%;
-    top: 0;
-    left: -25%;
-}
-
-@keyframes wave-drift-1 {
+@keyframes ripple {
     0%, 100% {
-        transform: translateX(0) translateY(0) scaleX(1);
-    }
-    25% {
-        transform: translateX(5%) translateY(-3%) scaleX(1.1);
+        transform: scaleX(1) translateY(0);
+        opacity: 0.3;
     }
     50% {
-        transform: translateX(0) translateY(5%) scaleX(0.95);
+        transform: scaleX(1.05) translateY(-2px);
+        opacity: 0.5;
+    }
+}
+
+/* Big old trees in background */
+.bg-shapes .bg-tree {
+    position: absolute;
+    bottom: 30%;
+    z-index: 3;
+}
+
+.bg-shapes .bg-tree-1 {
+    left: 5%;
+    width: 120px;
+    height: 180px;
+    opacity: 0.4;
+    animation: tree-sway-1 8s ease-in-out infinite;
+}
+
+.bg-shapes .bg-tree-2 {
+    left: 75%;
+    width: 140px;
+    height: 200px;
+    opacity: 0.35;
+    animation: tree-sway-2 9s ease-in-out infinite;
+}
+
+.bg-shapes .bg-tree-3 {
+    right: 15%;
+    width: 100px;
+    height: 160px;
+    opacity: 0.3;
+    animation: tree-sway-3 7s ease-in-out infinite;
+}
+
+@keyframes tree-sway-1 {
+    0%, 100% {
+        transform: rotate(0deg) translateX(0);
+    }
+    25% {
+        transform: rotate(1deg) translateX(2px);
     }
     75% {
-        transform: translateX(-5%) translateY(-2%) scaleX(1.05);
+        transform: rotate(-1deg) translateX(-2px);
     }
 }
 
-@keyframes wave-drift-2 {
+@keyframes tree-sway-2 {
     0%, 100% {
-        transform: translateX(0) translateY(0) scaleX(1);
+        transform: rotate(0deg) translateX(0);
     }
-    33% {
-        transform: translateX(-8%) translateY(4%) scaleX(1.08);
+    30% {
+        transform: rotate(-1.5deg) translateX(-3px);
     }
-    66% {
-        transform: translateX(3%) translateY(-3%) scaleX(0.92);
+    70% {
+        transform: rotate(1.5deg) translateX(3px);
     }
 }
 
-@keyframes wave-drift-3 {
+@keyframes tree-sway-3 {
     0%, 100% {
-        transform: translateX(0) translateY(0) scaleX(1);
+        transform: rotate(0deg) translateX(0);
+    }
+    20% {
+        transform: rotate(1.2deg) translateX(2px);
+    }
+    60% {
+        transform: rotate(-1.2deg) translateX(-2px);
+    }
+}
+
+/* Floating leaves */
+.bg-shapes .floating-leaf {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--color-primary);
+    border-radius: 0 100% 0 100%;
+    opacity: 0.4;
+    z-index: 4;
+}
+
+.bg-shapes .leaf-1 {
+    top: 20%;
+    left: 15%;
+    animation: leaf-float-1 12s ease-in-out infinite;
+}
+
+.bg-shapes .leaf-2 {
+    top: 40%;
+    left: 60%;
+    animation: leaf-float-2 15s ease-in-out infinite 2s;
+}
+
+.bg-shapes .leaf-3 {
+    top: 30%;
+    right: 20%;
+    animation: leaf-float-3 10s ease-in-out infinite 4s;
+}
+
+.bg-shapes .leaf-4 {
+    top: 50%;
+    left: 40%;
+    animation: leaf-float-1 13s ease-in-out infinite 1s;
+}
+
+.bg-shapes .leaf-5 {
+    top: 15%;
+    right: 35%;
+    animation: leaf-float-2 11s ease-in-out infinite 3s;
+}
+
+@keyframes leaf-float-1 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translate(20px, 30px) rotate(90deg);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translate(10px, 60px) rotate(180deg);
+        opacity: 0.4;
+    }
+    75% {
+        transform: translate(-10px, 30px) rotate(270deg);
+        opacity: 0.5;
+    }
+}
+
+@keyframes leaf-float-2 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.3;
+    }
+    30% {
+        transform: translate(-15px, 25px) rotate(120deg);
+        opacity: 0.5;
+    }
+    60% {
+        transform: translate(-25px, 50px) rotate(240deg);
+        opacity: 0.4;
+    }
+    90% {
+        transform: translate(5px, 20px) rotate(360deg);
+        opacity: 0.5;
+    }
+}
+
+@keyframes leaf-float-3 {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.3;
+    }
+    20% {
+        transform: translate(15px, 20px) rotate(60deg);
+        opacity: 0.5;
     }
     40% {
-        transform: translateX(6%) translateY(-5%) scaleX(1.12);
+        transform: translate(25px, 45px) rotate(180deg);
+        opacity: 0.4;
     }
-    80% {
-        transform: translateX(-4%) translateY(3%) scaleX(0.98);
+    70% {
+        transform: translate(10px, 65px) rotate(300deg);
+        opacity: 0.5;
     }
 }
 
@@ -586,6 +793,8 @@ footer {
     margin: 0 auto;
     padding: 40px 20px;
     min-height: 100vh;
+    position: relative;
+    z-index: 1;
 }
 
 .info-content {
@@ -596,11 +805,19 @@ footer {
     border: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
-    background: var(--bs-body-bg);
+    /* Glass morphism effect */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 [data-bs-theme="dark"] .info-card {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .info-card .card-title {
