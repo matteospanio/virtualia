@@ -351,14 +351,6 @@ footer {
     color: var(--color-primary);
 }
 
-.logo-placeholder {
-    display: inline-block;
-    padding: 1rem 2rem;
-    border: 2px dashed var(--color-accent);
-    border-radius: 8px;
-    background: var(--bs-secondary-bg);
-}
-
 /* Background Wave Shapes */
 .bg-shapes {
     position: fixed;
