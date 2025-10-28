@@ -142,12 +142,6 @@ body {
     justify-content: center;
     position: relative;
     z-index: 1;
-    pointer-events: none;
-}
-
-/* Make interactive elements clickable */
-.player-wrapper * {
-    pointer-events: auto;
 }
 
 /* Stylized Tree */
@@ -420,9 +414,13 @@ header h1 {
 }
 
 .list-group-item:hover {
-    background: var(--bs-secondary-bg);
+    background: rgba(255, 255, 255, 0.15);
     border-left-color: var(--color-accent);
     transform: translateX(4px);
+}
+
+[data-bs-theme="dark"] .list-group-item:hover {
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .list-group-item.active {
@@ -485,7 +483,7 @@ footer {
         rgba(44, 62, 80, 0.3) 100%);
 }
 
-/* Water at bottom */
+/* Water at bottom - more natural colors */
 .bg-shapes::after {
     content: '';
     position: absolute;
@@ -494,18 +492,20 @@ footer {
     width: 100%;
     height: 35%;
     background: linear-gradient(to bottom,
-        rgba(135, 206, 235, 0.15) 0%,
-        rgba(100, 149, 237, 0.2) 50%,
-        rgba(70, 130, 180, 0.25) 100%);
+        rgba(173, 216, 230, 0.25) 0%,
+        rgba(135, 206, 235, 0.35) 30%,
+        rgba(100, 149, 237, 0.4) 60%,
+        rgba(70, 130, 180, 0.45) 100%);
     z-index: 1;
     animation: water-shimmer 4s ease-in-out infinite;
 }
 
 [data-bs-theme="dark"] .bg-shapes::after {
     background: linear-gradient(to bottom,
-        rgba(44, 62, 80, 0.2) 0%,
-        rgba(52, 73, 94, 0.25) 50%,
-        rgba(34, 49, 63, 0.3) 100%);
+        rgba(52, 73, 94, 0.3) 0%,
+        rgba(44, 62, 80, 0.35) 30%,
+        rgba(41, 128, 185, 0.25) 60%,
+        rgba(34, 49, 63, 0.4) 100%);
 }
 
 @keyframes water-shimmer {
@@ -519,7 +519,7 @@ footer {
     }
 }
 
-/* Water ripples */
+/* Water ripples - enhanced visibility */
 .bg-shape {
     position: absolute;
     pointer-events: none;
@@ -530,15 +530,17 @@ footer {
 .bg-shape-3 {
     bottom: 0;
     width: 100%;
-    height: 3px;
-    background: rgba(100, 149, 237, 0.15);
+    height: 4px;
+    background: rgba(135, 206, 235, 0.25);
     border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(100, 149, 237, 0.2);
 }
 
 [data-bs-theme="dark"] .bg-shape-1,
 [data-bs-theme="dark"] .bg-shape-2,
 [data-bs-theme="dark"] .bg-shape-3 {
-    background: rgba(52, 152, 219, 0.1);
+    background: rgba(52, 152, 219, 0.2);
+    box-shadow: 0 1px 3px rgba(41, 128, 185, 0.15);
 }
 
 .bg-shape-1 {
@@ -793,12 +795,6 @@ footer {
     min-height: 100vh;
     position: relative;
     z-index: 1;
-    pointer-events: none;
-}
-
-/* Make interactive elements clickable */
-.info-wrapper * {
-    pointer-events: auto;
 }
 
 .info-content {
